@@ -1,0 +1,36 @@
+users:
+  - org-owner-main
+  - collab-view
+  - collab-edit
+  - collab-comment
+  - org-owner-other
+  - project-member
+  - org-member
+  - signed-up
+
+emailToUsername: '.*\+noti_([^@]+)@.*' # I've prefixed mine with noti_
+
+defaults:
+  all: false
+
+tests:
+- name: comment-reply
+  asUser: org-owner-main
+  subject: 'replied to a comment'
+  users:
+  - collab-view
+  - collab-edit
+  - collab-comment
+  - org-owner-other
+  - project-member
+  - org-member
+- name: comment-resolved
+  asUser: org-owner-main
+  subject: 'just resolved a comment'
+  users:
+  - collab-view
+  - collab-edit
+  - collab-comment
+  - org-owner-other
+  - project-member
+  - org-member
