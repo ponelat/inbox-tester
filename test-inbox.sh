@@ -134,7 +134,7 @@ else
 fi
 
 if [ $TEST ] ; then
-  echo Testing emails against ./tests.js
+  echo Testing emails against ./data/tests.yaml
   echo Filtering tests by \"$TEST_FILTER\"
   cat ./data/inbox.json  | node ./test-inbox.js "$TEST_FILTER"
 else
