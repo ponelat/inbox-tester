@@ -5,6 +5,7 @@ TEST=true
 EMAIL_FILTER="in:inbox"
 TEST_FILTER=
 HELP=
+LIST_USERNAMES=
 
 chmod a+rw ./data
 
@@ -27,6 +28,10 @@ help() {
   echo
   echo "-d|--skip-tests"
   echo "_JUST_ download the emails into data/inbox.json"
+  echo
+  echo "-u|--list-usernames"
+  echo "List the usernames ( after extraction ) found in emails"
+  echo "Useful to debug the regex found in ./data/tests.yaml"
   echo
   echo "-f|--email-filter <filter>"
   echo "filter to use when fetching emails"
@@ -87,6 +92,10 @@ case $key in
     TEST=
     shift # past argument
     ;;
+    -u|--list-usernames)
+    LIST_USERNAMES=true
+    shift # past argument
+    ;;
     -f|--email-filter)
     EMAIL_FILTER="$2"
     shift # past argument
@@ -136,7 +145,7 @@ fi
 if [ $TEST ] ; then
   echo Testing emails against ./data/tests.yaml
   echo Filtering tests by \"$TEST_FILTER\"
-  cat ./data/inbox.json  | node ./test-inbox.js "$TEST_FILTER"
+  cat ./data/inbox.json  | LIST_USERNAMES=$LIST_USERNAMES node ./test-inbox.js "$TEST_FILTER"
 else
   echo Skipped tests
 fi

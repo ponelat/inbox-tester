@@ -25,6 +25,12 @@ readJsonFromStdin()
     debug('Using regexp to exract username from email recipient: %s', emailToUsername)
     const emailsWithUser = applyUserToEmails(emails, emailToUsername)
 
+    // Just show usernames
+    if(process.env.LIST_USERNAMES) {
+      console.log('Usernames found: \n', emailsWithUser.map( a => a.user + ': ' + a.to).join('\n'))
+      return process.exit(0)
+    }
+
     const tests = filterStr
           ? suiteDef.tests.filter(a => a.name.includes(filterStr))
           : suiteDef.tests
